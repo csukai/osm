@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm-script timeout="1604000" element-limit="25073741824">
+
+
+<union>
+<query type="way">
+    <has-kv k="natural"/>
+    <has-kv k="natural" v="no" modv="not"/>
+    <has-kv k="natural" v="coastline" modv="not"/>
+    <has-kv k="natural" v="ridge" modv="not"/>
+    <has-kv k="natural" v="arete" modv="not"/>
+    <has-kv k="natural" v="tree_row" modv="not"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="landuse"/>
+    <has-kv k="landuse" v="no" modv="not"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="waterway" v="riverbank"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="waterway" v="dock"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="waterway" v="boatyard"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="waterway" v="dam"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+</union>
+
+<foreach into="pivot">
+  <union>
+    <item set="pivot"/>
+    <recurse type="way-node" from="pivot"/>
+  </union>
+  <make-area pivot="pivot"/>
+</foreach>
+
+</osm-script>

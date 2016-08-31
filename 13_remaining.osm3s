@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm-script timeout="1604000" element-limit="25073741824">
+
+<union>
+  <query type="way">
+    <has-kv k="building:part"/>
+    <has-kv k="building:part" v="no" modv="not"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="military"/>
+    <has-kv k="military" v="no" modv="not"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="craft"/>
+    <has-kv k="craft" v="no" modv="not"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+
+
+</union>
+
+<foreach into="pivot">
+  <union>
+    <item set="pivot"/>
+    <recurse type="way-node" from="pivot"/>
+  </union>
+  <make-area pivot="pivot"/>
+</foreach>
+
+</osm-script>

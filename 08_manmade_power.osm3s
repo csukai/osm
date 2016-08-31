@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm-script timeout="1604000" element-limit="25073741824">
+
+<union>
+  <query type="way">
+    <has-kv k="man_made"/>
+    <has-kv k="man_made" v="no" modv="not"/>
+    <has-kv k="man_made" v="cutline" modv="not"/>
+    <has-kv k="man_made" v="embankment" modv="not"/>
+    <has-kv k="man_made" v="pipeline" modv="not"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="power" v="generator"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="power" v="station"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="power" v="sub_station"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+  <query type="way">
+    <has-kv k="power" v="transformer"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+</union>
+
+<foreach into="pivot">
+  <union>
+    <item set="pivot"/>
+    <recurse type="way-node" from="pivot"/>
+  </union>
+  <make-area pivot="pivot"/>
+</foreach>
+
+</osm-script>

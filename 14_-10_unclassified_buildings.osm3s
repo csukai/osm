@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm-script timeout="1604000" element-limit="25073741824">
+
+<union>
+  <query type="way">
+    <bbox-query w="-180" e="180" n="-10" s="-11"/>
+    <has-kv k="building" v="yes"/>
+    <has-kv k="name" modv="not" regv=".*"/>
+    <has-kv k="area" v="no" modv="not"/>
+  </query>
+</union>
+
+  <foreach into="pivot">
+    <union>
+      <item set="pivot"/>
+      <recurse type="way-node" from="pivot"/>
+    </union>
+    <make-area pivot="pivot"/>
+  </foreach>
+
+</osm-script>
+
